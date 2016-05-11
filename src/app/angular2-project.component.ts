@@ -19,7 +19,6 @@ export class Angular2ProjectAppComponent implements OnInit{
     loading: boolean = true;
 
     constructor(private _cardsService: CardsService) {
-
     }
 
     ngOnInit() {
@@ -32,6 +31,10 @@ export class Angular2ProjectAppComponent implements OnInit{
 
     change() {
         console.log(this.boxtext);
+        this._cardsService.getSearchCards(this.boxtext)
+            .subscribe(res => {
+                this.cards = res;
+            });
         // this._http.get("http://localhost:8080/id/" + this.boxtext)
         //     .subscribe(res => {
         //         // res = res.json();

@@ -11,14 +11,29 @@ export class CardsService {
 
     constructor(private _http: Http) {}
 
+    resultToCards(result) : Card[] {
+        let hits = result.json()['hits']['hits'];
+        hits = _.map(hits, function(hit) {
+            return hit['_source'];
+        });
+        return hits
+    }
+
     getInitialCards() : Observable<Card[]> {
         return this._http.get(this._elasticURL + '/_search?q=*')
-            .map(res => {
-                let hits = res.json()['hits']['hits'];
-                hits = _.map(hits, function(hit) {
-                    return hit['_source'];
-                });
-                return hits
-            })
+            .map(res => this.resultToCards(res))
+    }
+
+    getSearchCards(searchTerm: string) : Observable<Card[]> {
+        let body = JSON.stringify({
+            "query": {
+                "match_phrase_prefix": {
+                    "name": searchTerm
+                }
+            }
+        });
+        console.log("search term: ", body);
+        return this._http.post(this._elasticURL + '/_search', body)
+            .map(res => this.resultToCards(res))
     }
 }
