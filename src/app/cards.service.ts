@@ -7,7 +7,7 @@ import { Card, Mechanic } from './card';
 
 @Injectable()
 export class CardsService {
-    private _elasticURL: string = 'http://localhost:9200/cards'
+    private _elasticURL: string = 'http://localhost:9200/hs/cards'
 
     constructor(private _http: Http) {}
 
@@ -28,7 +28,7 @@ export class CardsService {
         let body = JSON.stringify({
             "query": {
                 "match_phrase_prefix": {
-                    "name": searchTerm
+                    "Name": searchTerm
                 }
             }
         });
