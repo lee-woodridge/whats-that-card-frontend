@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ControlGroup } from '@angular/common';
 import { Http, HTTP_PROVIDERS } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/debounceTime';
 
 import { CardsService } from './cards.service';
 import { Card } from './card';
@@ -13,12 +15,24 @@ import { Card } from './card';
     providers: [CardsService, HTTP_PROVIDERS]
 })
 
-export class Angular2ProjectAppComponent implements OnInit{
+export class Angular2ProjectAppComponent implements OnInit {
     boxtext: string = 'input here';
     cards: Card[];
     loading: boolean = true;
+    form: ControlGroup;
 
-    constructor(private _cardsService: CardsService) {
+    constructor(private _cardsService: CardsService,
+        private _formBuilder: FormBuilder) {
+        this.form = this._formBuilder.group({
+            searchTerm: []
+        });
+        this.form.valueChanges.debounceTime(100) // debounce so we don't spam requests.
+            .subscribe(val => {
+            this._cardsService.getSearchCards(val.searchTerm)
+                .subscribe(res => {
+                    this.cards = res;
+                });
+        });
     }
 
     ngOnInit() {
@@ -27,19 +41,5 @@ export class Angular2ProjectAppComponent implements OnInit{
                 this.loading = false;
                 this.cards = res;
             });
-    }
-
-    change() {
-        console.log(this.boxtext);
-        this._cardsService.getSearchCards(this.boxtext)
-            .subscribe(res => {
-                this.cards = res;
-            });
-        // this._http.get("http://localhost:8080/id/" + this.boxtext)
-        //     .subscribe(res => {
-        //         // res = res.json();
-        //         console.log(res);
-        //         this.display = res.text();
-        //     });
     }
 }
