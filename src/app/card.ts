@@ -1,3 +1,5 @@
+import { Highlight } from './highlight';
+
 export interface Mechanic {
     name: string;
 }
@@ -27,4 +29,5 @@ export interface Card {
     rarity: string;
     race: string;
     cardId: string;
+    highlights: Highlight[];
 }

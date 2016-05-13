@@ -3,7 +3,9 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { Card, Mechanic } from './card';
+import { Card } from './card';
+import { Highlight } from './highlight';
+import { QueryBuilder } from './query-builder';
 
 @Injectable()
 export class CardsService {
@@ -12,11 +14,27 @@ export class CardsService {
     constructor(private _http: Http) {}
 
     resultToCards(result) : Card[] {
-        let hits = result.json()['hits']['hits'];
-        hits = _.map(hits, function(hit) {
-            return hit['_source'];
+        let j = result.json();
+        let hits = j['hits']['hits'];
+        return _.map(hits, function(hit) {
+            let card: Card = hit['_source'];
+            console.log(card);
+            console.log(hit['highlight']);
+            if (hit['highlight']) {
+                card.highlights = [];
+                console.log("in if");
+                for(let key in hit['highlight']) {
+                    let h: Highlight = {
+                        field: key,
+                        text: hit['highlight'][key][0]
+                    };
+                    console.log(key, h);
+                    card.highlights = card.highlights.concat(h);
+                }
+            }
+            console.log(card);
+            return card;
         });
-        return hits
     }
 
     getInitialCards() : Observable<Card[]> {
@@ -25,15 +43,13 @@ export class CardsService {
     }
 
     getSearchCards(searchTerm: string) : Observable<Card[]> {
-        let body = JSON.stringify({
-            "query": {
-                "match_phrase_prefix": {
-                    "Name": searchTerm
-                }
-            }
-        });
-        console.log("search term: ", body);
+        let body = QueryBuilder.getSearchQuery(searchTerm);
+        // console.log("search term: ", body);
         return this._http.post(this._elasticURL + '/_search', body)
-            .map(res => this.resultToCards(res))
+            .map(res => {
+                let newres = this.resultToCards(res);
+                // console.log(newres);
+                return newres;
+            });
     }
 }
