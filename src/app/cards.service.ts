@@ -18,21 +18,21 @@ export class CardsService {
         let hits = j['hits']['hits'];
         return _.map(hits, function(hit) {
             let card: Card = hit['_source'];
-            console.log(card);
-            console.log(hit['highlight']);
+            // console.log(card);
+            // console.log(hit['highlight']);
             if (hit['highlight']) {
                 card.highlights = [];
-                console.log("in if");
+                // console.log("in if");
                 for(let key in hit['highlight']) {
                     let h: Highlight = {
                         field: key,
                         text: hit['highlight'][key][0]
                     };
-                    console.log(key, h);
+                    // console.log(key, h);
                     card.highlights = card.highlights.concat(h);
                 }
             }
-            console.log(card);
+            // console.log(card);
             return card;
         });
     }
@@ -43,7 +43,7 @@ export class CardsService {
     }
 
     getSearchCards(searchTerm: string) : Observable<Card[]> {
-        let body = QueryBuilder.getSearchQuery(searchTerm);
+        let body = QueryBuilder.getMultiMatchQuery(searchTerm);
         // console.log("search term: ", body);
         return this._http.post(this._elasticURL + '/_search', body)
             .map(res => {
