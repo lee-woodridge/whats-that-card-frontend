@@ -38,7 +38,15 @@ export class CardsService {
     }
 
     getInitialCards() : Observable<Card[]> {
-        return this._http.get(this._elasticURL + '/_search?q=*')
+        let collectible = {
+            "filter": {
+                "term": {
+                    "Collectible": true
+                }
+            }
+        }
+        let body = JSON.stringify(collectible);
+        return this._http.post(this._elasticURL + '/_search', body)
             .map(res => this.resultToCards(res))
     }
 

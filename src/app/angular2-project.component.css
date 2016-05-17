@@ -15,3 +15,26 @@
 
     vertical-align: middle;
 }
+
+/* Modify row so that tile is the same height */
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-inside {
+    border: 1px;
+    border-color: grey;
+    padding: 20px;
+}
+
+.search-pane {
+    float: left;
+}

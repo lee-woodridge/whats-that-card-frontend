@@ -1,0 +1,58 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.form-control:active, .form-control:focus {
+    border-color: orange;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px orange;
+}
+
+mark {
+    background-color: #f39c12;
+}
+
+em.highlight {
+    font-style: normal;
+    text-decoration: underline;
+}
+
+.search-pane {
+    display: table-cell;
+    float: none;
+    border-right-style: inset;
+}
+
+.card-pane {
+    float: none;
+    display: table-cell;
+}
+
+.card-info {
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: center;
+}
+
+.card-img {
+    margin-top: -60px;
+    width: 307px;
+    height: 465px;
+}
+
+.overall {
+    display: table;
+}
+
+.search-tile {
+    text-align: center;
+}
+
+.close-button {
+    margin-top: 10px;
+    color: rgba(20,20,20,0.3);
+    font-size: 1.4em;
+}
+
+.close-button:hover {
+    color: rgba(20,20,20,0.7);
+}

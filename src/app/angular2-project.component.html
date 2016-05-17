@@ -1,35 +1,62 @@
-<div style="text-align: center; height: 100px;">
-    <div style="display: inline-block; width: 40%; padding: 25px;">
-        <form [ngFormModel]="form">
-            <input
-                id="searchTerm"
-                [ngFormControl]="form.controls.searchTerm"
-                class="form-control input-lg"
-                type="text">
-        </form>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div
-            *ngFor="let card of cards; let i = index"
-            class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail">
-                <h4>{{ card.Name }}</h4>
-                <div class="img-wrapper">
-                    <img
-                        class="img-responsive"
-                        src="http://res.cloudinary.com/elusive/image/upload/c_crop,g_north,h_185,w_160,x_0,y_64/{{ card.CardId }}.png"
-                        alt="{{ card.Name }}">
+<div class="container-fluid" style="width:100%">
+    <div class="row overall">
+        <div class="search-pane col-lg-8"
+            [class.col-lg-8]="chosenCard"
+            [class.col-lg-12]="!chosenCard">
+            <div style="text-align: center; height: 100px; width: 100%;">
+                <div style="display: inline-block; width: 60%; padding: 25px;">
+                    <form [ngFormModel]="form">
+                        <input
+                            id="searchTerm"
+                            [ngFormControl]="form.controls.searchTerm"
+                            class="form-control input-lg"
+                            type="text">
+                    </form>
                 </div>
-                <div *ngIf="card.highlights">
-                    <div *ngFor="let h of card.highlights">
-                        <em>{{ h.field }}</em>
-                        <p [innerHTML]="h.text"></p>
+            </div>
+
+            <div>
+                <div class="row row-eq-height">
+                    <div
+                        *ngFor="let card of cards; let i = index"
+                        class="col-lg-3 col-md-4 col-xs-6 search-tile">
+                        <a class="card-inside" (click)="selectCard($event, card)">
+                            <h4>{{ card.Name }}</h4>
+                            <div class="img-wrapper">
+                                <img
+                                    class="img-responsive"
+                                    src="http://res.cloudinary.com/elusive/image/upload/c_crop,g_north,h_185,w_160,x_0,y_64/{{ card.CardId }}.png"
+                                    alt="{{ card.Name }}">
+                            </div>
+                            <div *ngIf="card.highlights">
+                                <div *ngFor="let h of card.highlights">
+                                    <h5>{{ h.field }}</h5>
+                                    <p [innerHTML]="h.text"></p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </a>
+            </div>
+        </div>
+
+        <div class="card-pane col-lg-4"
+            *ngIf="chosenCard">
+            <i class='close-button glyphicon glyphicon-remove' (click)="resetCard()"></i>
+            <div class="card-info">
+                <h3>{{ chosenCard.Name }}</h3>
+                <br/>
+                <img
+                    class="card-img"
+                    src="http://res.cloudinary.com/elusive/image/upload/{{ chosenCard.CardId }}.png"
+                    alt="{{ chosenCard.Name }}">
+                <div>
+                    <h5>Flavor</h5>
+                    <p [innerHTML]="chosenCard.Flavor"></p>
+                    <h5>Text</h5>
+                    <p [innerHTML]="chosenCard.Text"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

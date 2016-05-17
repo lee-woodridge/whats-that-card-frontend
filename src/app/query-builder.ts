@@ -58,8 +58,8 @@ export class QueryBuilder {
                 }
             },
             "highlight": {
-                "pre_tags" : ["<mark>"],
-                "post_tags" : ["</mark>"],
+                "pre_tags" : ['<em class="highlight">'],
+                "post_tags" : ["</em>"],
                 "fields": {
                     "Text": {
                         "type": "fvh"

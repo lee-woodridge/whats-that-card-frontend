@@ -20,6 +20,7 @@ export class Angular2ProjectAppComponent implements OnInit {
     cards: Card[];
     loading: boolean = true;
     form: ControlGroup;
+    chosenCard: Card;
 
     constructor(private _cardsService: CardsService,
         private _formBuilder: FormBuilder) {
@@ -41,5 +42,14 @@ export class Angular2ProjectAppComponent implements OnInit {
                 this.loading = false;
                 this.cards = res;
             });
+    }
+
+    selectCard($event, card) {
+        this.chosenCard = card;
+        console.log($event, card);
+    }
+
+    resetCard() {
+        this.chosenCard = null;
     }
 }
