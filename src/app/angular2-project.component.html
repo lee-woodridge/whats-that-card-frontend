@@ -20,7 +20,9 @@
                     <div
                         *ngFor="let card of cards; let i = index"
                         class="col-lg-3 col-md-4 col-xs-6 search-tile">
-                        <a class="card-inside" (click)="selectCard($event, card)">
+                        <a class="card-inside"
+                            (click)="selectCard($event, card)"
+                            [style.background-color]="chosenCard==card?'rgb(237,237,237)':'#f7f7f7'">
                             <h4>{{ card.Name }}</h4>
                             <div class="img-wrapper">
                                 <img
@@ -44,17 +46,74 @@
             *ngIf="chosenCard">
             <i class='close-button glyphicon glyphicon-remove' (click)="resetCard()"></i>
             <div class="card-info">
-                <h3>{{ chosenCard.Name }}</h3>
+                <h2>{{ chosenCard.Name }}</h2>
                 <br/>
                 <img
                     class="card-img"
                     src="http://res.cloudinary.com/elusive/image/upload/{{ chosenCard.CardId }}.png"
                     alt="{{ chosenCard.Name }}">
                 <div>
-                    <h5>Flavor</h5>
-                    <p [innerHTML]="chosenCard.Flavor"></p>
-                    <h5>Text</h5>
-                    <p [innerHTML]="chosenCard.Text"></p>
+                    <div *ngIf="chosenCard.Type=='Weapon'">
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Cost:</em>{{ chosenCard.Cost }}
+                        </div>
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Attack:</em>{{ chosenCard.Attack }}
+                        </div>
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Durability:</em>{{ chosenCard.Durability }}
+                        </div>
+                    </div>
+                    <div *ngIf="chosenCard.Type=='Spell'">
+                        <em class="blue">Cost:</em>{{ chosenCard.Cost }}
+                    </div>
+                    <div *ngIf="chosenCard.Type=='Minion'">
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Cost:</em>{{ chosenCard.Cost }}
+                        </div>
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Attack:</em>{{ chosenCard.Attack }}
+                        </div>
+                        <div style="width:30%;display:inline-block;">
+                            <em class="blue">Health:</em>{{ chosenCard.Health }}
+                        </div>
+                    </div>
+                    <div *ngIf="chosenCard.Type">
+                        <em class="blue">Type:</em>
+                        <span [innerHTML]="chosenCard.Type"></span>
+                    </div>
+                    <div *ngIf="chosenCard.Rarity">
+                        <em class="blue">Rarity:</em>
+                        <span [innerHTML]="chosenCard.Rarity"></span>
+                    </div>
+                    <div *ngIf="chosenCard.PlayerClass">
+                        <em class="blue">Class Specific:</em>
+                        <span [innerHTML]="chosenCard.PlayerClass"></span>
+                    </div>
+                    <div *ngIf="chosenCard.Race">
+                        <em class="blue">Race:</em>
+                        <span [innerHTML]="chosenCard.Race"></span>
+                    </div>
+                    <div *ngIf="chosenCard.CardSet">
+                        <em class="blue">Card Set:</em>
+                        <span [innerHTML]="chosenCard.CardSet"></span>
+                    </div>
+                    <div *ngIf="chosenCard.Text">
+                        <em class="blue">Text:</em>
+                        <span [innerHTML]="chosenCard.Text"></span>
+                    </div>
+                    <div *ngIf="chosenCard.Flavor">
+                        <em class="blue">Flavor:</em>
+                        <span [innerHTML]="chosenCard.Flavor"></span>
+                    </div>
+                    <div *ngIf="chosenCard.Artist">
+                        <em class="blue">Artist:</em>
+                        <span [innerHTML]="chosenCard.Artist"></span>
+                    </div>
+                    <div *ngIf="chosenCard.HowToGet">
+                        <em class="blue">How to get:</em>
+                        <span [innerHTML]="chosenCard.HowToGet"></span>
+                    </div>
                 </div>
             </div>
         </div>

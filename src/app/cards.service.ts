@@ -51,6 +51,9 @@ export class CardsService {
     }
 
     getSearchCards(searchTerm: string) : Observable<Card[]> {
+        if(searchTerm == "") {
+            return this.getInitialCards();
+        }
         let body = QueryBuilder.getMultiMatchQuery(searchTerm);
         // console.log("search term: ", body);
         return this._http.post(this._elasticURL + '/_search', body)
