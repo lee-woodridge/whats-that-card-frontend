@@ -4,6 +4,7 @@ import { Http, HTTP_PROVIDERS } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/debounceTime';
 
+import { CardDetailsComponent } from './card-details.component';
 import { CardsService } from './cards.service';
 import { Card } from './card';
 
@@ -12,7 +13,8 @@ import { Card } from './card';
     selector: 'angular2-project-app',
     templateUrl: 'angular2-project.component.html',
     styleUrls: ['angular2-project.component.css'],
-    providers: [CardsService, HTTP_PROVIDERS]
+    providers: [CardsService, HTTP_PROVIDERS],
+    directives: [CardDetailsComponent]
 })
 
 export class Angular2ProjectAppComponent implements OnInit {
