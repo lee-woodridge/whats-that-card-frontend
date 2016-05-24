@@ -44,7 +44,9 @@
 
         <card-details
             class="col-lg-4"
-            [chosenCard]="chosenCard">
+            *ngIf="chosenCard"
+            [chosenCard]="chosenCard"
+            (hide)="resetCard()">
         </card-details>
     </div>
 </div>

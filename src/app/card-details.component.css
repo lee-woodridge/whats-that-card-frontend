@@ -15,10 +15,6 @@
     height: 465px;
 }
 
-.blue-text {
-    color: #158cba;
-}
-
 .close-button {
     margin-top: 10px;
     color: rgba(20,20,20,0.3);
@@ -33,4 +29,8 @@
 .third-block {
     width:30%;
     display:inline-block;
+}
+
+.blue-text {
+    color: #158cba;
 }

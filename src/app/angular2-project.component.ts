@@ -48,7 +48,6 @@ export class Angular2ProjectAppComponent implements OnInit {
 
     selectCard($event, card) {
         this.chosenCard = card;
-        console.log($event, card);
     }
 
     resetCard() {
