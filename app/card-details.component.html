@@ -1,0 +1,48 @@
+<div class="card-pane">
+    <i class='close-button glyphicon glyphicon-remove'
+      (click)="emitClose()"></i>
+    <div class="card-info">
+        <h2>{{ card.Name }}</h2>
+        <br/>
+        <img
+            class="card-img"
+            src="http://res.cloudinary.com/elusive/image/upload/{{ card.CardId }}.png"
+            alt="{{ card.Name }}">
+        <div>
+            <div *ngIf="card.Type=='Weapon'">
+                <div class="third-block">
+                    <em class="blue-text">Cost:</em>{{ card.Cost }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Attack:</em>{{ card.Attack }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Durability:</em>{{ card.Durability }}
+                </div>
+            </div>
+            <div *ngIf="card.Type=='Spell'">
+                <em class="blue-text">Cost:</em>{{ card.Cost }}
+            </div>
+            <div *ngIf="card.Type=='Minion'">
+                <div class="third-block">
+                    <em class="blue-text">Cost:</em>{{ card.Cost }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Attack:</em>{{ card.Attack }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Health:</em>{{ card.Health }}
+                </div>
+            </div>
+            <pair [title]="'Type'" [para]="card.Type"></pair>
+            <pair [title]="'Rarity'" [para]="card.Rarity"></pair>
+            <pair [title]="'Class Specific'" [para]="card.PlayerClass"></pair>
+            <pair [title]="'Race'" [para]="card.Race"></pair>
+            <pair [title]="'Card Set'" [para]="card.CardSet"></pair>
+            <pair [title]="'Text'" [para]="card.Text"></pair>
+            <pair [title]="'Flavor'" [para]="card.Flavor"></pair>
+            <pair [title]="'Artist'" [para]="card.Artist"></pair>
+            <pair [title]="'How to obtain'" [para]="card.HowToGet"></pair>
+        </div>
+    </div>
+</div>

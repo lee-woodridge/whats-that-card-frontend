@@ -1,0 +1,36 @@
+.card-pane {
+    float: none;
+    display: table-cell;
+}
+
+.card-info {
+    padding-left: 60px;
+    padding-right: 60px;
+    text-align: center;
+}
+
+.card-img {
+    margin-top: -60px;
+    width: 307px;
+    height: 465px;
+}
+
+.close-button {
+    margin-top: 10px;
+    color: rgba(20,20,20,0.3);
+    font-size: 1.4em;
+    width: 22px;
+}
+
+.close-button:hover {
+    color: rgba(20,20,20,0.7);
+}
+
+.third-block {
+    width:30%;
+    display:inline-block;
+}
+
+.blue-text {
+    color: #158cba;
+}

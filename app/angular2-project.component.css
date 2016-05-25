@@ -1,0 +1,40 @@
+.img-wrapper {
+    display: inline-block;
+    overflow: hidden;
+
+    /*border: 1px solid gray;*/
+    border-radius: 10px;
+}
+
+.img-wrapper img {
+    -webkit-transform:scale(1.18); /* Safari and Chrome */
+    -moz-transform:scale(1.18); /* Firefox */
+    -ms-transform:scale(1.18); /* IE 9 */
+    -o-transform:scale(1.18); /* Opera */
+    transform:scale(1.18);
+
+    vertical-align: middle;
+}
+
+/* Modify row so that tile is the same height */
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-inside {
+    border: 1px;
+    border-color: grey;
+    padding: 20px;
+}
+
+.search-pane {
+    float: left;
+}

@@ -1,0 +1,60 @@
+<div class="container-fluid" style="width:100%">
+    <div class="row overall">
+        <div class="search-pane col-lg-8"
+            [class.col-lg-8]="chosenCard"
+            [class.col-lg-12]="!chosenCard">
+            <div style="text-align: center; height: 100px; width: 100%;">
+                <div style="display: inline-block; width: 60%; padding: 25px;">
+                    <form [ngFormModel]="form">
+                        <input
+                            id="searchTerm"
+                            [ngFormControl]="form.controls.searchTerm"
+                            class="form-control input-lg"
+                            type="text">
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <div class="row row-eq-height">
+                    <div
+                        *ngFor="let card of cards; let i = index"
+                        class="col-lg-3 col-md-4 col-xs-6 search-tile">
+                        <a class="card-inside"
+                            (click)="selectCard($event, card)"
+                            [style.background-color]="chosenCard==card?'rgb(237,237,237)':'#f7f7f7'">
+                            <h4>{{ card.Name }}</h4>
+                            <div class="img-wrapper">
+                                <img
+                                    class="img-responsive"
+                                    src="http://res.cloudinary.com/elusive/image/upload/c_crop,g_north,h_185,w_160,x_0,y_64/{{ card.CardId }}.png"
+                                    alt="{{ card.Name }}">
+                            </div>
+                            <div *ngIf="card.highlights">
+                                <div *ngFor="let h of card.highlights">
+                                    <h5>{{ h.field }}</h5>
+                                    <p [innerHTML]="h.text"></p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <pager
+                style="text-align:center;"
+                [style.hidden]="total<=12"
+                [numPages]="total/12"
+                [currentPage]="currentPage"
+                (page-change)="changePage($event)">
+            </pager>
+        </div>
+
+        <card-details
+            class="col-lg-4"
+            *ngIf="chosenCard"
+            [chosenCard]="chosenCard"
+            (hide)="resetCard()">
+        </card-details>
+    </div>
+</div>
