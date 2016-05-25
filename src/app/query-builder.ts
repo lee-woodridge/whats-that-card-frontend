@@ -1,5 +1,8 @@
+let pageSize: number = 12;
+
 export class QueryBuilder {
-    static getMultiMatchQuery(searchTerm: string) : string {
+
+    static getMultiMatchQuery(searchTerm: string, page: number = 0) : string {
         let words: string[] = searchTerm.split(' ');
 
         // Build the matches we'll concat together.
@@ -93,7 +96,9 @@ export class QueryBuilder {
                     }
                 }
             },
-            "min_score": 0.01
+            "min_score": 0.01,
+            "size": pageSize,
+            "from": pageSize * page
         });
     }
 }

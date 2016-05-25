@@ -13,10 +13,11 @@ export class CardsService {
 
     constructor(private _http: Http) {}
 
-    resultToCards(result) : Card[] {
+    resultToCards(result) : [number, Card[]] {
         let j = result.json();
+        let total = j['hits']['total'];
         let hits = j['hits']['hits'];
-        return _.map(hits, function(hit) {
+        let cards = _.map(hits, function(hit) {
             let card: Card = hit['_source'];
             // console.log(card);
             // console.log(hit['highlight']);
@@ -35,26 +36,28 @@ export class CardsService {
             // console.log(card);
             return card;
         });
+        return [total, cards]
     }
 
-    getInitialCards() : Observable<Card[]> {
+    getInitialCards() : Observable<[number, Card[]]> {
         let collectible = {
             "filter": {
                 "term": {
                     "Collectible": true
                 }
-            }
+            },
+            "size": 12
         }
         let body = JSON.stringify(collectible);
         return this._http.post(this._elasticURL + '/_search', body)
             .map(res => this.resultToCards(res))
     }
 
-    getSearchCards(searchTerm: string) : Observable<Card[]> {
+    getSearchCards(searchTerm: string, page: number = 0) : Observable<[number, Card[]]> {
         if(searchTerm == "") {
             return this.getInitialCards();
         }
-        let body = QueryBuilder.getMultiMatchQuery(searchTerm);
+        let body = QueryBuilder.getMultiMatchQuery(searchTerm, page);
         // console.log("search term: ", body);
         return this._http.post(this._elasticURL + '/_search', body)
             .map(res => {
