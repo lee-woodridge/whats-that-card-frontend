@@ -9,7 +9,7 @@ import { QueryBuilder } from './query-builder';
 
 @Injectable()
 export class CardsService {
-    private _elasticURL: string = 'http://localhost:9200/hs/cards'
+    private _elasticURL: string = 'https://tary7ao3x0.execute-api.us-east-1.amazonaws.com/prod'
 
     constructor(private _http: Http) {}
 
@@ -49,7 +49,7 @@ export class CardsService {
             "size": 12
         }
         let body = JSON.stringify(collectible);
-        return this._http.post(this._elasticURL + '/_search', body)
+        return this._http.post(this._elasticURL, body)
             .map(res => this.resultToCards(res))
     }
 
@@ -59,7 +59,7 @@ export class CardsService {
         }
         let body = QueryBuilder.getMultiMatchQuery(searchTerm, page);
         // console.log("search term: ", body);
-        return this._http.post(this._elasticURL + '/_search', body)
+        return this._http.post(this._elasticURL, body)
             .map(res => {
                 let newres = this.resultToCards(res);
                 // console.log(newres);
