@@ -45,11 +45,11 @@ export class Angular2ProjectAppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._cardsService.getInitialCards()
-            .subscribe(res => {
-                this.loading = false;
-                [this.total, this.cards] = res;
-            });
+        // this._cardsService.getInitialCards()
+        //     .subscribe(res => {
+        //         this.loading = false;
+        //         [this.total, this.cards] = res;
+        //     });
     }
 
     selectCard($event, card: Card) {

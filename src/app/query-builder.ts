@@ -51,8 +51,12 @@ export class QueryBuilder {
 
         return JSON.stringify({
             "query": {
-                "bool": {
-                    "should": matches,
+                "filtered": {
+                    "query": {
+                        "bool": {
+                            "should": matches
+                        }
+                    },
                     "filter": {
                         "term": {
                             "Collectible": true
