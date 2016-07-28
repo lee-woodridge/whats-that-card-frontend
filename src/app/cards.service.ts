@@ -5,62 +5,46 @@ import 'rxjs/add/operator/map';
 
 import { Card } from './card';
 import { Highlight } from './highlight';
-import { QueryBuilder } from './query-builder';
+// import { QueryBuilder } from './query-builder';
 
 @Injectable()
 export class CardsService {
-    private _elasticURL: string = 'http://localhost:9200/hs/cards'
+    private _backendURL: string = 'http://localhost:4201/search'
+    private pageSize: number = 9
 
     constructor(private _http: Http) {}
 
     resultToCards(result) : [number, Card[]] {
         let j = result.json();
-        let total = j['hits']['total'];
-        let hits = j['hits']['hits'];
-        let cards = _.map(hits, function(hit) {
-            let card: Card = hit['_source'];
-            // console.log(card);
-            // console.log(hit['highlight']);
-            if (hit['highlight']) {
-                card.highlights = [];
-                // console.log("in if");
-                for(let key in hit['highlight']) {
-                    let h: Highlight = {
-                        field: key,
-                        text: hit['highlight'][key][0]
-                    };
-                    // console.log(key, h);
-                    card.highlights = card.highlights.concat(h);
-                }
-            }
-            // console.log(card);
+        let cards = _.map(j, function(res) {
+            let card: Card = res['RawCard'];
             return card;
         });
-        return [total, cards]
-    }
+        return [cards.length, cards] // TODO: get backend to return total num results and report here
 
-    getInitialCards() : Observable<[number, Card[]]> {
-        let collectible = {
-            "filter": {
-                "term": {
-                    "Collectible": true
-                }
-            },
-            "size": 12
-        }
-        let body = JSON.stringify(collectible);
-        return this._http.post(this._elasticURL + '/_search', body)
-            .map(res => this.resultToCards(res))
+        // TODO: add back in highlights:
+        //     if (hit['highlight']) {
+        //         card.highlights = [];
+        //         // console.log("in if");
+        //         for(let key in hit['highlight']) {
+        //             let h: Highlight = {
+        //                 field: key,
+        //                 text: hit['highlight'][key][0]
+        //             };
+        //             // console.log(key, h);
+        //             card.highlights = card.highlights.concat(h);
     }
 
     getSearchCards(searchTerm: string, page: number = 0) : Observable<[number, Card[]]> {
-        if(searchTerm == "") {
-            return this.getInitialCards();
-        }
-        let body = QueryBuilder.getMultiMatchQuery(searchTerm, page);
         // console.log("search term: ", body);
-        return this._http.post(this._elasticURL + '/_search', body)
+        let body = JSON.stringify({
+            "query": searchTerm,
+            "page": page,
+            "pageSize": this.pageSize
+        })
+        return this._http.post(this._backendURL, body)
             .map(res => {
+                // console.log(res);
                 let newres = this.resultToCards(res);
                 // console.log(newres);
                 return newres;

@@ -45,11 +45,7 @@ export class Angular2ProjectAppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._cardsService.getInitialCards()
-            .subscribe(res => {
-                this.loading = false;
-                [this.total, this.cards] = res;
-            });
+        // Add in a base state?
     }
 
     selectCard($event, card: Card) {
