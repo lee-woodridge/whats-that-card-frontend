@@ -26,7 +26,7 @@ export class Angular2ProjectAppComponent implements OnInit {
     loading: boolean = true;
     form: ControlGroup;
     chosenCard: Card;
-    total: number = 1;
+    total: number = 0;
 
     constructor(private _cardsService: CardsService,
         private _formBuilder: FormBuilder) {
