@@ -9,7 +9,7 @@ import { Highlight } from './highlight';
 
 @Injectable()
 export class CardsService {
-    private _backendURL: string = 'http://localhost:4201/search'
+    private _backendURL: string = 'https://fathomless-chamber-99408.herokuapp.com/search'
     private pageSize: number = 12
 
     constructor(private _http: Http) {}
