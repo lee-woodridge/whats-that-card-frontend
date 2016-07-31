@@ -27,7 +27,7 @@
                             <div class="img-wrapper">
                                 <img
                                     class="img-responsive"
-                                    src="http://res.cloudinary.com/elusive/image/upload/c_crop,g_north,h_185,w_160,x_0,y_64/{{ card.CardId }}.png"
+                                    src="http://res.cloudinary.com/elusive/image/upload/c_crop,g_north,h_185,w_160,x_0,y_64/{{ card.cardId }}.png"
                                     alt="{{ card.Name }}">
                             </div>
                             <div *ngIf="card.highlights">
@@ -43,7 +43,7 @@
 
             <pager
                 style="text-align:center;"
-                [style.visibility]="total<=12?'hidden':'visible'"
+                [style.hidden]="total<=12"
                 [numPages]="total/12"
                 [currentPage]="currentPage"
                 (page-change)="changePage($event)">
