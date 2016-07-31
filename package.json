@@ -5,6 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng server",
+    "deploy": "ng github-pages:deploy",
     "postinstall": "typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "format": "clang-format -i -style=file --glob=src/**/*.ts",
