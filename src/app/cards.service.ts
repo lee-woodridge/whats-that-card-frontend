@@ -10,29 +10,18 @@ import { Highlight } from './highlight';
 @Injectable()
 export class CardsService {
     private _backendURL: string = 'http://localhost:4201/search'
-    private pageSize: number = 9
+    private pageSize: number = 12
 
     constructor(private _http: Http) {}
 
     resultToCards(result) : [number, Card[]] {
         let j = result.json();
         let cards = _.map(j, function(res) {
-            let card: Card = res['RawCard'];
+            let card: Card = res['rawCard'];
+            card.highlights = res['highlights'];
             return card;
         });
         return [cards.length, cards] // TODO: get backend to return total num results and report here
-
-        // TODO: add back in highlights:
-        //     if (hit['highlight']) {
-        //         card.highlights = [];
-        //         // console.log("in if");
-        //         for(let key in hit['highlight']) {
-        //             let h: Highlight = {
-        //                 field: key,
-        //                 text: hit['highlight'][key][0]
-        //             };
-        //             // console.log(key, h);
-        //             card.highlights = card.highlights.concat(h);
     }
 
     getSearchCards(searchTerm: string, page: number = 0) : Observable<[number, Card[]]> {
