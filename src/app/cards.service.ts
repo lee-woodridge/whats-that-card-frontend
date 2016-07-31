@@ -16,12 +16,12 @@ export class CardsService {
 
     resultToCards(result) : [number, Card[]] {
         let j = result.json();
-        let cards = _.map(j, function(res) {
+        let cards = _.map(j['results'], function(res) {
             let card: Card = res['rawCard'];
             card.highlights = res['highlights'];
             return card;
         });
-        return [cards.length, cards] // TODO: get backend to return total num results and report here
+        return [j['total'], cards]
     }
 
     getSearchCards(searchTerm: string, page: number = 0) : Observable<[number, Card[]]> {

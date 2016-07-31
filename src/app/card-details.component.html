@@ -2,47 +2,47 @@
     <i class='close-button glyphicon glyphicon-remove'
       (click)="emitClose()"></i>
     <div class="card-info">
-        <h2>{{ card.Name }}</h2>
+        <h2>{{ card.name }}</h2>
         <br/>
         <img
             class="card-img"
-            src="http://res.cloudinary.com/elusive/image/upload/{{ card.CardId }}.png"
-            alt="{{ card.Name }}">
+            src="http://res.cloudinary.com/elusive/image/upload/{{ card.cardId }}.png"
+            alt="{{ card.name }}">
         <div>
-            <div *ngIf="card.Type=='Weapon'">
+            <div *ngIf="card.type=='Weapon'">
                 <div class="third-block">
-                    <em class="blue-text">Cost:</em>{{ card.Cost }}
+                    <em class="blue-text">Cost:</em>{{ card.cost }}
                 </div>
                 <div class="third-block">
-                    <em class="blue-text">Attack:</em>{{ card.Attack }}
+                    <em class="blue-text">Attack:</em>{{ card.attack }}
                 </div>
                 <div class="third-block">
-                    <em class="blue-text">Durability:</em>{{ card.Durability }}
-                </div>
-            </div>
-            <div *ngIf="card.Type=='Spell'">
-                <em class="blue-text">Cost:</em>{{ card.Cost }}
-            </div>
-            <div *ngIf="card.Type=='Minion'">
-                <div class="third-block">
-                    <em class="blue-text">Cost:</em>{{ card.Cost }}
-                </div>
-                <div class="third-block">
-                    <em class="blue-text">Attack:</em>{{ card.Attack }}
-                </div>
-                <div class="third-block">
-                    <em class="blue-text">Health:</em>{{ card.Health }}
+                    <em class="blue-text">Durability:</em>{{ card.durability }}
                 </div>
             </div>
-            <pair [title]="'Type'" [para]="card.Type"></pair>
-            <pair [title]="'Rarity'" [para]="card.Rarity"></pair>
-            <pair [title]="'Class Specific'" [para]="card.PlayerClass"></pair>
-            <pair [title]="'Race'" [para]="card.Race"></pair>
-            <pair [title]="'Card Set'" [para]="card.CardSet"></pair>
-            <pair [title]="'Text'" [para]="card.Text"></pair>
-            <pair [title]="'Flavor'" [para]="card.Flavor"></pair>
-            <pair [title]="'Artist'" [para]="card.Artist"></pair>
-            <pair [title]="'How to obtain'" [para]="card.HowToGet"></pair>
+            <div *ngIf="card.type=='Spell'">
+                <em class="blue-text">Cost:</em>{{ card.cost }}
+            </div>
+            <div *ngIf="card.type=='Minion'">
+                <div class="third-block">
+                    <em class="blue-text">Cost:</em>{{ card.cost }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Attack:</em>{{ card.attack }}
+                </div>
+                <div class="third-block">
+                    <em class="blue-text">Health:</em>{{ card.health }}
+                </div>
+            </div>
+            <pair [title]="'Type'" [para]="card.type"></pair>
+            <pair [title]="'Rarity'" [para]="card.rarity"></pair>
+            <pair [title]="'Class Specific'" [para]="card.playerClass"></pair>
+            <pair [title]="'Race'" [para]="card.race"></pair>
+            <pair [title]="'Card Set'" [para]="card.cardSet"></pair>
+            <pair [title]="'Text'" [para]="card.text"></pair>
+            <pair [title]="'Flavor'" [para]="card.flavor"></pair>
+            <pair [title]="'Artist'" [para]="card.artist"></pair>
+            <pair [title]="'How to obtain'" [para]="card.howToGet"></pair>
         </div>
     </div>
 </div>
